@@ -1,0 +1,2 @@
+# quickSellAssignment
+Assignment of QuickSell
