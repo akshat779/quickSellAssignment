@@ -1,13 +1,10 @@
-import { useState } from 'react'
-
-function App() {
-
+import Dashboard from "./Page/Dashboard";
+function App(){
   return (
-    <>
-      <h1>Hello</h1>
-    </>
+    <div className="App">
+      <Dashboard />
+    </div>
   )
 }
 
-export default App
- 
+export default App;
