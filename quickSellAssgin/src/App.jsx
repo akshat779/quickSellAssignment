@@ -22,6 +22,10 @@ function App() {
     setOrder(orderSelected);
     localStorage.setItem("selectedOrder", orderSelected);
   }
+  const addTicket = (newTicket) => {
+    setTickets((prevTickets) => [...prevTickets, newTicket]);
+  };
+
 
   useEffect(() => {
     fetchData();
