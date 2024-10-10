@@ -13,19 +13,23 @@ function App() {
   const [group, setGroup] = useState(defaultGroup ? defaultGroup : 'status');
   const [order, setOrder] = useState(defaultOrder ? defaultOrder : 'priority');
 
-
   const handleGroupChange = (groupSelected) => {
     setGroup(groupSelected);
     localStorage.setItem("selectedGroup", groupSelected);
   }
+
   const handleOrderChange = (orderSelected) => {
     setOrder(orderSelected);
     localStorage.setItem("selectedOrder", orderSelected);
   }
+
   const addTicket = (newTicket) => {
     setTickets((prevTickets) => [...prevTickets, newTicket]);
   };
 
+  const deleteTicket = (ticketId) => {
+    setTickets((prevTickets) => prevTickets.filter(ticket => ticket.id !== ticketId));
+  };
 
   useEffect(() => {
     fetchData();
@@ -49,17 +53,17 @@ function App() {
         <div className='app_boards'>
           {
             group === 'status' && status.map((opt, id) => (
-              <Board order={order} data={opt} key={id} tickets={tickets} users={users} group={group} />
+              <Board order={order} data={opt} key={id} tickets={tickets} users={users} group={group} addTicket={addTicket} deleteTicket={deleteTicket} />
             ))
           }
           {
             group === 'user' && users.map((opt) => (
-              <Board order={order} data={opt} key={opt.id} tickets={tickets} users={users} group={group} userId={opt?.id} />
+              <Board order={order} data={opt} key={opt.id} tickets={tickets} users={users} group={group} userId={opt?.id} addTicket={addTicket} deleteTicket={deleteTicket} />
             ))
           }
           {
             group === 'priority' && priorities.map((opt, id) => (
-              <Board order={order} data={opt} level={id} key={id} tickets={tickets} users={users} group={group} />
+              <Board order={order} data={opt} level={id} key={id} tickets={tickets} users={users} group={group} addTicket={addTicket} deleteTicket={deleteTicket} />
             ))
           }
         </div>

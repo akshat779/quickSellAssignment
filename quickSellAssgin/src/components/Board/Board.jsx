@@ -3,10 +3,13 @@ import { IoMdAdd } from "react-icons/io";
 import { SlOptions } from "react-icons/sl";
 import Card from '../Card/Card';
 import UserIcon from '../UserIcon/UserIcon';
+import Modal from './modal.jsx'; // Import the Modal component
 import { generateIntials, getRandomColor, priorities, statusIcons } from '../../utils/data';
+import { useState } from 'react';
 
 const Board = (props) => {
-    const { tickets, users, group, level, userId, order, data, addTicket } = props;
+    const { tickets, users, group, level, userId, order, data, addTicket, deleteTicket, editTicket, moveTicket } = props;
+    const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
 
     let filteredTickets = [];
     if (group === 'status')
@@ -21,15 +24,7 @@ const Board = (props) => {
     else
         filteredTickets = filteredTickets.slice().sort((a, b) => a.title.localeCompare(b.title));
 
-    const handleAddTicket = () => {
-        const newTicket = {
-            id: Date.now(), // Unique ID
-            title: "New Ticket", // Default title
-            status: group === 'status' ? data.title.toLowerCase() : 'backlog', // Default status
-            priority: group === 'priority' ? level : 0, // Default priority
-            userId: group === 'user' ? userId : null, // Assign to current user if grouped by user
-            tag: [], // Default empty tags
-        };
+    const handleAddTicket = (newTicket) => {
         addTicket(newTicket);
     };
 
@@ -42,7 +37,7 @@ const Board = (props) => {
                     <span>{filteredTickets.length}</span>
                 </div>
                 <div className="board_top_options">
-                    <IoMdAdd onClick={handleAddTicket} />
+                    <IoMdAdd onClick={() => setIsModalOpen(true)} /> {/* Open modal on click */}
                     <SlOptions />
                 </div>
             </div>
@@ -59,10 +54,18 @@ const Board = (props) => {
                             statusColor={statusIcons[ticket?.status.toLowerCase()]?.color || ""}
                             bgColor={getRandomColor()}
                             icon={priorities[ticket?.priority]?.icon || ""}
+                            onDelete={deleteTicket} // Pass the delete function
+                            onEdit={editTicket}
+                            onMove={moveTicket}
                         />)
                     })
                 }
             </div>
+            <Modal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSubmit={handleAddTicket}
+            />
         </div>
     )
 }

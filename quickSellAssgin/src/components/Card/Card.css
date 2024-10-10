@@ -4,13 +4,14 @@
     border: 1px solid lightgray;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    padding: 2px 15px;
+    padding: 6px 15px;
     margin-bottom: 10px;
   }
   .card_header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
   }
   .card_id {
     color: gray;
@@ -47,3 +48,47 @@
     gap: 5px;
   }
   
+  .delete_icon {
+    cursor: pointer;
+    color: #a8a8a8; /* Red color for the delete icon */
+    transition: color 0.3s;
+  }
+
+  .delete_icon:hover {
+    color: #ff1a1a; /* Darker red on hover */
+  }
+
+  .options_icon {
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+    transition: color 0.3s;
+  }
+
+  .options_icon:hover {
+    color: #007bff;
+  }
+
+  .dropdown_menu {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dropdown_menu div {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .dropdown_menu div:hover {
+    background-color: #f0f0f0;
+  }
